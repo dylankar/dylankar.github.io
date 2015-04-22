@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Class Notes</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+	<!-- <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400italic,400,700,300' rel='stylesheet' type='text/css'> -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+	<div ng-app="cnApp">
+		<div id="sidebar-container">
+		<div id="sidebar">
+			<h1 id="logo">
+		        <a id="nav-logo" href="http://goo.gl/tk8lum">UCLA ANDERSON ALUMNI NETWORK</a>
+        	</h1>
+			<nav id="sidebar-menu">
+				<ul>
+					<li><a href="http://goo.gl/BxBxyU">Read Class Notes</a></li>
+					<li><a href="http://goo.gl/TXpT99" target="_blank">Submit a Class Note</a></li>
+					<li><a href="http://bit.ly/CN_Summer2014_InMemoriam">In Memoriam</a></li>
+                    <li><a href="http://goo.gl/ielNXT">Archives</a></li>
+                    <li><a href="http://bit.ly/AssetsHome">Assets Digital</a></li>
+	                <li><a href="http://goo.gl/tVeMLh">Update Your Profile</a></li>
+					<li><a href="http://goo.gl/tVeMLh">Alumni Directory</a></li>
+					<li><a href="http://goo.gl/tk8lum">Alumni Home</a></li>
+				</ul>	
+			</nav>
+		</div>
+		</div>
+
+		<header>
+			<div class="header-row">
+				<div id="cn-title"><h1>CLASS NOTES</h1></div>
+				<div id="search">
+					<span class="fa fa-search fa-2x"></span><input ng-model="search" type="search" placeholder="Search by name, program, or year">
+				</div>
+			</div>
+			<div class="header-row">
+				<nav id="decades-menu" ng-cloak>
+					<ul>
+						<li><span ng-click="decade = {CLASS_YEAR: 195}">1950s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: 196}">1960s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: 197}">1970s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: 198}">1980s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: 199}">1990s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: 200}">2000s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: 201}">2010s</span></li>
+						<li><span ng-click="decade = {CLASS_YEAR: $}">Show All</span></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+
+		<div id="content" ng-controller="ClassNotesCtrl">
+			<div class="note" ng-repeat="note in classnotes.notes | filter:decade | filter:search | orderBy:['CLASS_YEAR','PROGRAM', '-SUBMISSION_DATE','LAST_NAME','FIRST_NAME']">
+				<div class="note-header" ng-if="classnotes.notes[$index]['CLASS_YEAR'] != classnotes.notes[$index-1]['CLASS_YEAR']">
+					<div class ng-cloak="note-year">
+						<h1>{{note.CLASS_YEAR}}</h1>
+					</div>
+				</div>
+				<div class="note-body" ng-class="{'note-has-photo': note.PHOTO_1 != null && note.PHOTO_1 != ''}" ng-bind-html="note.CLASS_NOTE | boldAlum:'{{fullName(note)}}'" ng-cloak>
+					{{note.CLASS_NOTE}}
+				</div>
+				<div class="note-photo" ng-if="note.PHOTO_1 != null && note.PHOTO_1 != ''" ng-cloak>
+					<img ng-src="{{andersonPhotoURL(note, 1)}}" />
+					<div class="note-photo-caption">
+						{{note.PHOTO_1_CAPTION}}
+					</div>
+				</div>
+				<div class="note-photo" ng-if="note.PHOTO_2 != null && note.PHOTO_2 != ''" ng-cloak>
+					<img ng-src="{{andersonPhotoURL(note, 2)}}" />
+					<div class="note-photo-caption">
+						{{note.PHOTO_2_CAPTION}}
+					</div>
+				</div>
+				<div class="note-footer" ng-cloak>
+					Submitted {{note.SUBMISSION_DATE}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/filters.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
