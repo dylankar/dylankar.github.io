@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <style>
+      #meee {
+        margin: 0;
+        background: #fff;
+        transition: all 49000ms ease-in;
+      }
+      #me {
+        width: 100%;
+        height: 100%;
+        margin-top: 100%;
+        transition: width 117ms ease-in, margin-top 117ms ease-in, margin-left 117ms ease-in;
+      }
+      #mee {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: height 20ms ease-in, opacity 49000ms ease-in;
+      }
+    </style>
+  </head>
+  <body id="meee">
+    <div id="me">
+      <img id="mee" src="img/me.png" />
+    </div>
+    <audio src="me.mp3" type="audio/mpeg" autoplay></audio>
+    <script>
+      window.setTimeout(function() {
+        window.location.replace("https://www.linkedin.com/pub/gabriel-blanco/43/75b/378");
+      }, 48500);
+      window.setInterval(function() {
+        var rand1 = Math.random() * 60;
+        var rand2 = Math.random() * 10 + 90;
+        me.style.width = rand1.toString() + '%';
+        mee.style.height = rand2.toString() + '%';
+        me.style.marginLeft = (Math.random()*75).toString() + '%';
+        me.style.marginTop = (Math.random()*25).toString() + '%';
+        window.setTimeout(function() {
+          me.style.width = '100%';
+          mee.style.height = '100%';
+          me.style.marginLeft = 0;
+          me.style.marginTop = 0;
+        }, 50);
+      }, 75);
+      window.setTimeout(function() {
+        mee.style.opacity = '1';
+        meee.style.background = "#111";
+      }, 100);
+    </script>
+  </body>
+</html>
+
