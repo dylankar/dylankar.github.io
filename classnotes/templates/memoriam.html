@@ -1,0 +1,34 @@
+<header>
+	<div class="header-row">
+		<div id="cn-title"><h1>CLASS NOTES</h1></div>
+	</div>
+</header>
+
+
+<div id="content">
+	<div class="note" ng-repeat="note in cn.notes | filter:decade | filter:search | orderBy:['CLASS_YEAR','PROGRAM', '-SUBMISSION_DATE','LAST_NAME','FIRST_NAME']">
+		<div class="note-header" ng-if="cn.notes[$index]['CLASS_YEAR'] != cn.notes[$index-1]['CLASS_YEAR']">
+			<div class="note-year" ng-cloak="note-year">
+				<h1>{{note.CLASS_YEAR}}</h1>
+			</div>
+		</div>
+		<div class="note-body" ng-class="{'note-has-photo': note.PHOTO_1 != null && note.PHOTO_1 != ''}" ng-bind-html="note.CLASS_NOTE | boldAlum:cn.fullName(note)" ng-cloak>
+			{{note.CLASS_NOTE}}
+		</div>
+		<div class="note-photo" ng-if="note.PHOTO_1 != null && note.PHOTO_1 != ''" ng-cloak>
+			<img ng-src="{{cn.andersonPhotoURL(note, 1)}}" />
+			<div class="note-photo-caption">
+				{{note.PHOTO_1_CAPTION}}
+			</div>
+		</div>
+		<div class="note-photo" ng-if="note.PHOTO_2 != null && note.PHOTO_2 != ''" ng-cloak>
+			<img ng-src="{{cn.andersonPhotoURL(note, 2)}}" />
+			<div class="note-photo-caption">
+				{{note.PHOTO_2_CAPTION}}
+			</div>
+		</div>
+		<div class="note-footer" ng-cloak>
+			Submitted {{note.SUBMISSION_DATE}}
+		</div>
+	</div>
+</div>
